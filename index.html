@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Top 5 Accounts — Cursor Territory Strategy</title>
+<style>
+:root {
+  --slide-w: 1280px;
+  --slide-h: 720px;
+  --stage-w: min(var(--slide-w), 100vw);
+  --stage-h: calc(var(--stage-w) * 9 / 16);
+  --bg: #070807;
+  --bg-panel: #0f110f;
+  --bg-card: #121512;
+  --line: #2a3328;
+  --line-bright: #3d4f38;
+  --green: #b8ff3c;
+  --green-dim: #8fcc2f;
+  --green-glow: rgba(184, 255, 60, 0.14);
+  --text: #f2f5ef;
+  --muted: #9aa894;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; }
+body {
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  letter-spacing: -.01em;
+}
+button { font: inherit; cursor: pointer; }
+.deck-viewport { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; background: var(--bg); }
+.deck {
+  width: var(--stage-w);
+  height: var(--stage-h);
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.deck-track {
+  height: 100%;
+  display: flex;
+  transform: translateX(calc(var(--i, 0) * -1 * var(--stage-w)));
+  transition: transform 260ms ease;
+}
+.slide {
+  flex: 0 0 var(--stage-w);
+  width: var(--stage-w);
+  height: var(--stage-h);
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(184,255,60,.03) 0%, transparent 28%),
+    radial-gradient(circle at 85% 0%, rgba(184,255,60,.08), transparent 35%),
+    var(--bg);
+}
+.slide-inner {
+  position: absolute;
+  inset: 3.2cqw 4.2cqw 3cqw;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 1.2cqw;
+}
+.eyebrow {
+  font-family: "SF Mono", "IBM Plex Mono", Consolas, monospace;
+  font-size: .72cqw;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+h1, h2, h3, p, li { margin: 0; }
+h1 {
+  font-size: 3.1cqw;
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+}
+h1 .accent { color: var(--green); }
+h2 { font-size: 2.15cqw; font-weight: 500; line-height: 1.08; letter-spacing: -.025em; }
+h3 { font-size: 1.05cqw; font-weight: 600; }
+p, li { font-size: .82cqw; line-height: 1.38; color: var(--muted); }
+strong { color: var(--text); font-weight: 600; }
+.slide-head { display: grid; gap: .55cqw; }
+.head-row { display: flex; justify-content: space-between; align-items: start; gap: 2cqw; }
+.subtitle { font-size: .95cqw; line-height: 1.42; color: var(--muted); max-width: 72ch; }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .55cqw;
+  font-size: .95cqw;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.brand svg { width: 2.2cqw; height: 2.2cqw; }
+.framework-box {
+  border: 1px solid var(--line-bright);
+  background: rgba(184,255,60,.04);
+  border-radius: .55cqw;
+  padding: .75cqw .9cqw;
+  min-width: 24cqw;
+}
+.framework-box .label {
+  font-family: "SF Mono", Consolas, monospace;
+  font-size: .62cqw;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: .55cqw;
+}
+.framework-list { display: grid; gap: .35cqw; }
+.framework-item {
+  display: flex;
+  align-items: center;
+  gap: .45cqw;
+  font-size: .68cqw;
+  color: var(--text);
+}
+.framework-dot {
+  width: .45cqw;
+  height: .45cqw;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 .5cqw var(--green-glow);
+  flex: 0 0 auto;
+}
+.rank-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .7cqw;
+  min-height: 0;
+  align-content: stretch;
+}
+.rank-card {
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%), var(--bg-card);
+  padding: .75cqw .72cqw;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: .5cqw;
+  min-width: 0;
+  position: relative;
+}
+.rank-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: .18cqw;
+  background: linear-gradient(90deg, var(--green), transparent);
+  border-radius: .55cqw .55cqw 0 0;
+  opacity: .7;
+}
+.rank-num {
+  width: 1.55cqw;
+  height: 1.55cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #101410;
+  font-size: .78cqw;
+  font-weight: 700;
+}
+.company-name { font-size: 1.02cqw; font-weight: 650; line-height: 1.1; color: var(--text); }
+.industry { font-size: .64cqw; color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
+.stat-row { display: grid; gap: .28cqw; }
+.stat {
+  font-size: .66cqw;
+  line-height: 1.25;
+  color: var(--muted);
+}
+.stat strong { color: var(--text); font-size: .72cqw; }
+.rank-card ul { margin: 0; padding-left: .95cqw; display: grid; gap: .28cqw; }
+.rank-card li { font-size: .6cqw; line-height: 1.28; }
+.summary-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
+  gap: .7cqw;
+}
+.summary-box {
+  border: 1px solid var(--line);
+  border-radius: .5cqw;
+  background: var(--bg-panel);
+  padding: .7cqw .8cqw;
+  display: grid;
+  gap: .45cqw;
+  align-content: start;
+}
+.summary-box h3 { color: var(--green); font-size: .78cqw; text-transform: uppercase; letter-spacing: .08em; }
+.summary-box ul { margin: 0; padding-left: 1cqw; display: grid; gap: .28cqw; }
+.summary-box li { font-size: .64cqw; }
+.persona-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .35cqw; }
+.persona {
+  font-size: .6cqw;
+  padding: .32cqw .42cqw;
+  border: 1px solid var(--line);
+  border-radius: .35cqw;
+  color: var(--text);
+  text-align: center;
+}
+.slide-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 2cqw;
+  border-top: 1px solid var(--line);
+  padding-top: .55cqw;
+  font-size: .6cqw;
+  color: var(--muted);
+}
+.pgnum { font-family: Consolas, monospace; color: var(--green); }
+
+.account-slide .slide-inner { gap: 1cqw; }
+.account-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.2cqw;
+  align-items: center;
+}
+.rank-badge {
+  width: 3.2cqw;
+  height: 3.2cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #101410;
+  font-size: 1.35cqw;
+  font-weight: 700;
+}
+.account-meta { display: grid; gap: .35cqw; }
+.account-meta .industry { font-size: .72cqw; }
+.account-meta h2 { font-size: 2.5cqw; }
+.account-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .55cqw;
+}
+.stat-card {
+  border: 1px solid var(--line-bright);
+  border-radius: .5cqw;
+  background: var(--bg-panel);
+  padding: .7cqw .8cqw;
+}
+.stat-card .label {
+  font-family: Consolas, monospace;
+  font-size: .58cqw;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: .25cqw;
+}
+.stat-card .value { font-size: 1.25cqw; font-weight: 650; color: var(--text); line-height: 1.1; }
+.stat-card .sub { font-size: .68cqw; color: var(--muted); margin-top: .2cqw; }
+.account-body {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 1fr;
+  gap: .7cqw;
+  min-height: 0;
+}
+.panel {
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .8cqw .85cqw;
+  display: grid;
+  gap: .5cqw;
+  align-content: start;
+  min-width: 0;
+}
+.panel h3 { color: var(--green); font-size: .76cqw; text-transform: uppercase; letter-spacing: .08em; }
+.panel ul { margin: 0; padding-left: 1cqw; display: grid; gap: .34cqw; }
+.panel li { font-size: .72cqw; }
+.rank-reason {
+  border-left: .22cqw solid var(--green);
+  padding-left: .75cqw;
+  font-size: .88cqw;
+  line-height: 1.4;
+  color: var(--text);
+}
+.flag {
+  display: inline-flex;
+  align-items: center;
+  gap: .35cqw;
+  font-family: Consolas, monospace;
+  font-size: .62cqw;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  padding: .28cqw .55cqw;
+  background: rgba(184,255,60,.06);
+}
+.cover-slide .slide-inner {
+  grid-template-rows: 1fr auto;
+  align-content: center;
+}
+.cover-main {
+  display: grid;
+  gap: 1.2cqw;
+  align-content: center;
+  max-width: 62ch;
+}
+.cover-main h1 { font-size: 4.2cqw; max-width: 14ch; }
+.cover-main .lede { font-size: 1.2cqw; line-height: 1.45; color: var(--muted); max-width: 48ch; }
+.cover-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: .45cqw;
+  width: fit-content;
+  font-family: Consolas, monospace;
+  font-size: .72cqw;
+  color: var(--green);
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  padding: .42cqw .7cqw;
+  background: rgba(184,255,60,.05);
+}
+.controls {
+  position: fixed;
+  left: 50%;
+  bottom: 1.2cqw;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: .55cqw;
+  padding: .45cqw;
+  border: 1px solid var(--line);
+  border-radius: .42cqw;
+  background: rgba(15,17,15,.92);
+  z-index: 20;
+}
+.control-btn {
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--text);
+  border-radius: .3cqw;
+  padding: .5cqw .72cqw;
+  font-size: .8cqw;
+}
+.control-btn:hover { border-color: var(--green); color: var(--green); }
+#counter {
+  min-width: 3.4cqw;
+  text-align: center;
+  font-family: Consolas, monospace;
+  font-size: .75cqw;
+  color: var(--muted);
+}
+.deck-viewport:fullscreen { background: #000; --stage-w: min(100vw, calc(100vh * 16 / 9)); --stage-h: min(100vh, calc(100vw * 9 / 16)); }
+@media (prefers-reduced-motion: reduce) { .deck-track { transition: none; } }
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { overflow: visible; }
+  .deck-viewport { position: static; display: block; }
+  .deck { width: auto; height: auto; border: none; }
+  .deck-track { display: block; transform: none; }
+  .slide { width: var(--slide-w); height: var(--slide-h); break-inside: avoid; }
+  .slide:not(:last-child) { break-after: page; }
+  .controls { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<div class="deck">
+<div class="deck-track">
+
+<section class="slide cover-slide">
+<div class="slide-inner">
+<div class="cover-main">
+<div class="cover-signal"><span>●</span> Cursor Territory Strategy</div>
+<h1>Top 5 Accounts <span class="accent">Prioritized by Impact &amp; Potential</span></h1>
+<p class="lede">Ranked by a combination of developer count, total employees, revenue, AI maturity &amp; engineering culture, and expansion potential — weighted for Cursor's seat-based TAM and reachability.</p>
+</div>
+<div class="slide-foot">
+<span>Cursor AE Strategic Plan · Week of July 13, 2026</span>
+<span class="pgnum">01</span>
+</div>
+</div>
+</section>
+
+<section class="slide overview-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="head-row">
+<div>
+<div class="eyebrow">Account Prioritization</div>
+<h1>Top 5 Accounts <span class="accent">Ranked 1–5</span></h1>
+<p class="subtitle">These five accounts combine large developer populations, meaningful revenue scale, and AI-forward engineering cultures — ranked to maximize Cursor consumption and long-term enterprise expansion.</p>
+</div>
+<div class="framework-box">
+<div class="label">My Prioritization Framework</div>
+<div class="framework-list">
+<div class="framework-item"><span class="framework-dot"></span>Developer Count</div>
+<div class="framework-item"><span class="framework-dot"></span>Total Employees</div>
+<div class="framework-item"><span class="framework-dot"></span>Revenue</div>
+<div class="framework-item"><span class="framework-dot"></span>AI Maturity &amp; Engineering Culture</div>
+<div class="framework-item"><span class="framework-dot"></span>Expansion Potential</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="rank-grid">
+<article class="rank-card">
+<div class="rank-num">1</div>
+<div class="company-name">Manhattan Associates</div>
+<div class="industry">Supply Chain / Commerce SaaS</div>
+<div class="stat-row">
+<div class="stat"><strong>4,500</strong> employees</div>
+<div class="stat"><strong>~1,800</strong> developers (40%)</div>
+<div class="stat"><strong>~$1.1B</strong> revenue</div>
+</div>
+<ul>
+<li>Exec entry via CTO Sanjeev Siotia — economic buyer identified</li>
+<li>Manhattan Active cloud SaaS = velocity is the business</li>
+<li>AI platform owner (Ashish Andotra) is a natural technical champion</li>
+</ul>
+</article>
+
+<article class="rank-card">
+<div class="rank-num">2</div>
+<div class="company-name">Verifone</div>
+<div class="industry">Payments Technology</div>
+<div class="stat-row">
+<div class="stat"><strong>5,964</strong> employees</div>
+<div class="stat"><strong>~2,200</strong> developers (37%)</div>
+<div class="stat"><strong>Global</strong> payments leader</div>
+</div>
+<ul>
+<li>Largest developer population in the set — highest seat TAM</li>
+<li>AI already embedded in SDLC; hackathon culture pre-sold</li>
+<li>Warm champion in Bangalore AI Innovation Hub</li>
+</ul>
+</article>
+
+<article class="rank-card">
+<div class="rank-num">3</div>
+<div class="company-name">Extreme Networks</div>
+<div class="industry">Cloud Networking</div>
+<div class="stat-row">
+<div class="stat"><strong>3,955</strong> employees</div>
+<div class="stat"><strong>~1,600</strong> developers (40%)</div>
+<div class="stat"><strong>~$1.3B</strong> revenue</div>
+</div>
+<ul>
+<li>Platform ONE AI roadmap with dedicated AI Platforms org</li>
+<li>Technical champion warm via GenAI / agentic team</li>
+<li>AI-first culture under CTO Nabil Bukhari</li>
+</ul>
+</article>
+
+<article class="rank-card">
+<div class="rank-num">4</div>
+<div class="company-name">Agilysys</div>
+<div class="industry">Hospitality SaaS</div>
+<div class="stat-row">
+<div class="stat"><strong>2,687</strong> employees</div>
+<div class="stat"><strong>~1,300</strong> developers (48%)</div>
+<div class="stat"><strong>NASDAQ:</strong> AGYS</div>
+</div>
+<ul>
+<li>Highest developer density — large India R&D center</li>
+<li>Prior Copilot trial means AI coding is already validated</li>
+<li>CTO ex-Manhattan R&D — velocity story resonates</li>
+</ul>
+</article>
+
+<article class="rank-card">
+<div class="rank-num">5</div>
+<div class="company-name">Guardian Life</div>
+<div class="industry">Insurance / Financial Services</div>
+<div class="stat-row">
+<div class="stat"><strong>9,500</strong> employees</div>
+<div class="stat"><strong>~1,200</strong> developers (13%)</div>
+<div class="stat"><strong>~$16B</strong> revenue</div>
+</div>
+<ul>
+<li>Largest company, but lowest developer density in the set</li>
+<li>Legacy modernization wedge under new CDTO (2024)</li>
+<li>Regulated environment = longer cycle, governance-first</li>
+</ul>
+</article>
+</div>
+
+<div class="summary-row">
+<div class="summary-box">
+<h3>Why These 5</h3>
+<ul>
+<li>Combined <strong>~8,100 software engineers</strong> across five accounts</li>
+<li>Each has a clear AI or velocity mandate in engineering</li>
+<li>Reachability signals: exec entry, warm champions, or prior AI trials</li>
+</ul>
+</div>
+<div class="summary-box">
+<h3>What This Means for Cursor</h3>
+<ul>
+<li><strong>High potential consumption</strong> across R&D orgs</li>
+<li>Clear business value: PR throughput, cycle time, onboarding</li>
+<li>Land-and-expand motion in every account</li>
+</ul>
+</div>
+<div class="summary-box">
+<h3>Primary Buying Personas</h3>
+<div class="persona-grid">
+<div class="persona">CTO / VP Engineering</div>
+<div class="persona">Head of Developer Productivity</div>
+<div class="persona">Director of AI / Platform</div>
+<div class="persona">DevEx Leader</div>
+<div class="persona">CISO / AppSec</div>
+<div class="persona">Engineering Managers</div>
+</div>
+</div>
+</div>
+
+<div class="slide-foot">
+<span>Top 5 Accounts Ranked by Impact &amp; Potential | Cursor Territory Strategy</span>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+<span class="pgnum">02</span>
+</div>
+</div>
+</section>
+
+<section class="slide account-slide">
+<div class="slide-inner">
+<div class="account-top">
+<div class="rank-badge">1</div>
+<div class="account-meta">
+<div class="industry">Supply Chain / Commerce SaaS · NASDAQ: MANH</div>
+<h2>Manhattan Associates</h2>
+<span class="flag">Exec entry · Technical champion identified</span>
+</div>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+</div>
+<div class="account-stats">
+<div class="stat-card"><div class="label">Employees</div><div class="value">4,500</div><div class="sub">Atlanta HQ · global R&D</div></div>
+<div class="stat-card"><div class="label">Software Engineers</div><div class="value">~1,800</div><div class="sub">~40% of workforce · seat TAM</div></div>
+<div class="stat-card"><div class="label">Revenue</div><div class="value">~$1.1B</div><div class="sub">Supply chain &amp; commerce leader</div></div>
+</div>
+<div class="account-body">
+<div class="panel">
+<h3>Why #1 over the others</h3>
+<p class="rank-reason">Ranked first because it combines a large developer base, public-company revenue scale, and the strongest reachability signal in the set — exec entry via CTO plus an AI platform owner as technical champion. Feature velocity on Manhattan Active directly drives revenue.</p>
+</div>
+<div class="panel">
+<h3>Key Signals</h3>
+<ul>
+<li>Manhattan Active: cloud-native microservices SaaS under continuous R&D</li>
+<li>Ashish Andotra owns the AI platform — natural buyer for an AI coding layer</li>
+<li>Sanjeev Siotia (EVP &amp; CTO) sets the technology standard</li>
+<li>Likely GitHub Copilot footprint — displacement/complement opportunity</li>
+</ul>
+</div>
+<div class="panel">
+<h3>Cursor POV &amp; Motion</h3>
+<ul>
+<li><strong>Velocity = revenue:</strong> accelerate PR throughput and cycle time</li>
+<li>Pilot in one Manhattan Active platform pod (25–50 seats)</li>
+<li>Metrics: PR cycle time ↓, AI-assisted merge %, new-hire ramp</li>
+<li>Competition: GitHub Copilot</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Manhattan Associates · Priority #1</span><span class="pgnum">03</span></div>
+</div>
+</section>
+
+<section class="slide account-slide">
+<div class="slide-inner">
+<div class="account-top">
+<div class="rank-badge">2</div>
+<div class="account-meta">
+<div class="industry">Payments Technology · Global · Private</div>
+<h2>Verifone</h2>
+<span class="flag">Warm champion · AI-in-SDLC culture</span>
+</div>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+</div>
+<div class="account-stats">
+<div class="stat-card"><div class="label">Employees</div><div class="value">5,964</div><div class="sub">US + large Bangalore hub</div></div>
+<div class="stat-card"><div class="label">Software Engineers</div><div class="value">~2,200</div><div class="sub">Largest dev org in the set</div></div>
+<div class="stat-card"><div class="label">Revenue</div><div class="value">Global leader</div><div class="sub">Payments tech since 1981</div></div>
+</div>
+<div class="account-body">
+<div class="panel">
+<h3>Why #2 over the others</h3>
+<p class="rank-reason">Highest developer count and strongest AI-maturity signal — leadership states AI is deeply embedded in the SDLC, with internal hackathons proving culture. Ranked below Manhattan on reachability: warm champion identified but no exec entry yet; larger global rollout complexity.</p>
+</div>
+<div class="panel">
+<h3>Key Signals</h3>
+<ul>
+<li>Builds Android POS, payment gateways, merchant integrations</li>
+<li>Praveen Sachwani runs Bangalore AI Innovation Hub — warmest entry</li>
+<li>Thano Thanabalasingam (EVP, Global Engineering) owns budget</li>
+<li>PCI-DSS environment — engage CISO Will Morgan early</li>
+</ul>
+</div>
+<div class="panel">
+<h3>Cursor POV &amp; Motion</h3>
+<ul>
+<li>AI culture is pre-sold — make Cursor the standard AI coding environment</li>
+<li>Land in Bangalore hub, prove velocity on POS/integration code</li>
+<li>Pilot: 50–100 seats · expand across global org</li>
+<li>Competition: GitHub Copilot</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Verifone · Priority #2</span><span class="pgnum">04</span></div>
+</div>
+</section>
+
+<section class="slide account-slide">
+<div class="slide-inner">
+<div class="account-top">
+<div class="rank-badge">3</div>
+<div class="account-meta">
+<div class="industry">Cloud Networking · NASDAQ: EXTR</div>
+<h2>Extreme Networks</h2>
+<span class="flag">Technical champion warm · AI-first roadmap</span>
+</div>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+</div>
+<div class="account-stats">
+<div class="stat-card"><div class="label">Employees</div><div class="value">3,955</div><div class="sub">Cloud networking company</div></div>
+<div class="stat-card"><div class="label">Software Engineers</div><div class="value">~1,600</div><div class="sub">Platform ONE + networking stack</div></div>
+<div class="stat-card"><div class="label">Revenue</div><div class="value">~$1.3B</div><div class="sub">AI Platforms org under CTO</div></div>
+</div>
+<div class="account-body">
+<div class="panel">
+<h3>Why #3 over the others</h3>
+<p class="rank-reason">Strong revenue, solid developer base, and the most AI-forward product roadmap — Platform ONE with a dedicated AI Platforms org. Ranked below Verifone on raw seat count, but the DIY/build tendency and multi-threaded eng leadership add complexity to land-and-expand.</p>
+</div>
+<div class="panel">
+<h3>Key Signals</h3>
+<ul>
+<li>Nabil Bukhari (EVP, CTO &amp; President, AI Platforms) owns the vision</li>
+<li>Ashutosh Badwe leads GenAI &amp; Agentic AI — existing relationship</li>
+<li>Markus Nispel heads AI Engineering — technical validator</li>
+<li>Agentic roadmap aligns with Cursor's multi-file agentic workflows</li>
+</ul>
+</div>
+<div class="panel">
+<h3>Cursor POV &amp; Motion</h3>
+<ul>
+<li>Ship an AI platform with AI-native engineering tooling</li>
+<li>Enter via Badwe's GenAI team, sponsor up to Bukhari</li>
+<li>Beat build-vs-buy TCO for internal tooling</li>
+<li>Competition: GitHub Copilot / DIY</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Extreme Networks · Priority #3</span><span class="pgnum">05</span></div>
+</div>
+</section>
+
+<section class="slide account-slide">
+<div class="slide-inner">
+<div class="account-top">
+<div class="rank-badge">4</div>
+<div class="account-meta">
+<div class="industry">Hospitality SaaS · NASDAQ: AGYS</div>
+<h2>Agilysys</h2>
+<span class="flag">Re-engage · Copilot trial history</span>
+</div>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+</div>
+<div class="account-stats">
+<div class="stat-card"><div class="label">Employees</div><div class="value">2,687</div><div class="sub">Alpharetta HQ · India R&D</div></div>
+<div class="stat-card"><div class="label">Software Engineers</div><div class="value">~1,300</div><div class="sub">48% density — highest in set</div></div>
+<div class="stat-card"><div class="label">Revenue</div><div class="value">Hospitality-only</div><div class="sub">PMS, POS, F&amp;B cloud SaaS</div></div>
+</div>
+<div class="account-body">
+<div class="panel">
+<h3>Why #4 over the others</h3>
+<p class="rank-reason">Highest developer density and prior Copilot trial prove AI coding is validated — but smaller total scale and revenue than the top three. CTO Sethuram Shivashankar came from Manhattan R&D, giving a shared velocity narrative. India R&D center is the natural land point.</p>
+</div>
+<div class="panel">
+<h3>Key Signals</h3>
+<ul>
+<li>Prior Microsoft Copilot trial in PM org — AI coding on the radar</li>
+<li>Prakash Bhat (VP &amp; MD, India) owns the bulk of engineers</li>
+<li>CTO values dev velocity from Manhattan Associates tenure</li>
+<li>Agilysys Cloud: continuous hospitality SaaS delivery</li>
+</ul>
+</div>
+<div class="panel">
+<h3>Cursor POV &amp; Motion</h3>
+<ul>
+<li>Position as the productivity step-change vs. Copilot autocomplete</li>
+<li>Head-to-head pilot in India R&D (30–50 seats)</li>
+<li>Metrics: PR throughput vs. Copilot baseline, adoption %</li>
+<li>Competition: GitHub Copilot</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Agilysys · Priority #4</span><span class="pgnum">06</span></div>
+</div>
+</section>
+
+<section class="slide account-slide">
+<div class="slide-inner">
+<div class="account-top">
+<div class="rank-badge">5</div>
+<div class="account-meta">
+<div class="industry">Insurance / Financial Services · Mutual</div>
+<h2>Guardian Life</h2>
+<span class="flag">Net new · Digital transformation</span>
+</div>
+<div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
+</div>
+<div class="account-stats">
+<div class="stat-card"><div class="label">Employees</div><div class="value">9,500</div><div class="sub">Largest total headcount</div></div>
+<div class="stat-card"><div class="label">Software Engineers</div><div class="value">~1,200</div><div class="sub">13% density — lowest in set</div></div>
+<div class="stat-card"><div class="label">Revenue</div><div class="value">~$16B</div><div class="sub">160+ yr insurer · NYC HQ</div></div>
+</div>
+<div class="account-body">
+<div class="panel">
+<h3>Why #5 over the others</h3>
+<p class="rank-reason">Largest company by revenue and headcount, but lowest developer density and the longest path to land. New CDTO Steve Rullo (2024) is driving transformation, creating a legacy-modernization wedge — but regulated procurement, security scrutiny, and incomplete contact mapping push it behind the SaaS/tech accounts.</p>
+</div>
+<div class="panel">
+<h3>Key Signals</h3>
+<ul>
+<li>Steve Rullo (CDTO) leading digital modernization mandate</li>
+<li>Heavy legacy workload: Java/.NET → modern web/React</li>
+<li>AI-assisted refactoring accelerates transformation</li>
+<li>Doug Greene (VP &amp; CISO) — governance sign-off required early</li>
+</ul>
+</div>
+<div class="panel">
+<h3>Cursor POV &amp; Motion</h3>
+<ul>
+<li><strong>Modernize legacy faster, safely</strong> — lead with enterprise controls</li>
+<li>SSO/SCIM, Privacy Mode, no-training, audit trail</li>
+<li>Pilot in legacy-modernization squad (25–40 seats)</li>
+<li>Competition: GitHub Copilot / DIY</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Guardian Life · Priority #5</span><span class="pgnum">07</span></div>
+</div>
+</section>
+
+</div>
+</div>
+</div>
+
+<div class="controls">
+<button class="control-btn" id="prev" type="button">←</button>
+<span id="counter">1 / 7</span>
+<button class="control-btn" id="next" type="button">→</button>
+<button class="control-btn" id="fullscreen" type="button">⛶</button>
+</div>
+
+<script>
+const track = document.querySelector('.deck-track');
+const viewport = document.querySelector('.deck-viewport');
+const slides = [...document.querySelectorAll('.slide')];
+let i = 0;
+
+const setActive = (n) => {
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  track.style.setProperty('--i', i);
+  document.querySelector('#counter').textContent = `${i + 1} / ${slides.length}`;
+};
+
+const stepForward = () => setActive(i + 1);
+const stepBack = () => setActive(i - 1);
+const toggleFullscreen = () => document.fullscreenElement ? document.exitFullscreen() : viewport?.requestFullscreen?.();
+
+document.querySelector('#prev').addEventListener('click', stepBack);
+document.querySelector('#next').addEventListener('click', stepForward);
+document.querySelector('#fullscreen').addEventListener('click', toggleFullscreen);
+addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); stepForward(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); stepBack(); }
+  else if (e.key === 'Home') setActive(0);
+  else if (e.key === 'End') setActive(slides.length - 1);
+  else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+setActive(0);
+</script>
+</body>
+</html>
