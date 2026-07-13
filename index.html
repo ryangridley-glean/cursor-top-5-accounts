@@ -350,6 +350,186 @@ strong { color: var(--text); font-weight: 600; }
   font-size: .75cqw;
   color: var(--muted);
 }
+.agenda-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .65cqw;
+  min-height: 0;
+  align-content: start;
+}
+.agenda-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .7cqw;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .72cqw .8cqw;
+}
+.agenda-num {
+  width: 1.7cqw;
+  height: 1.7cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #101410;
+  font-size: .78cqw;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+.agenda-copy h3 { font-size: .88cqw; color: var(--text); margin-bottom: .2cqw; }
+.agenda-copy p { font-size: .66cqw; line-height: 1.32; }
+.stakeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .65cqw;
+  min-height: 0;
+}
+.stakeholder-card {
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .75cqw .7cqw;
+  display: grid;
+  gap: .45cqw;
+  align-content: start;
+}
+.stakeholder-card .num {
+  font-family: Consolas, monospace;
+  font-size: .62cqw;
+  color: var(--green);
+  letter-spacing: .1em;
+}
+.stakeholder-card .name { font-size: .92cqw; font-weight: 650; color: var(--text); line-height: 1.15; }
+.stakeholder-card .role { font-size: .64cqw; color: var(--muted); line-height: 1.3; }
+.stakeholder-card .buy {
+  font-size: .58cqw;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--green);
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  padding: .25cqw .45cqw;
+  width: fit-content;
+  background: rgba(184,255,60,.05);
+}
+.stakeholder-card p { font-size: .6cqw; line-height: 1.3; margin-top: .2cqw; }
+.pov-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7cqw;
+  min-height: 0;
+}
+.pov-card {
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .8cqw .85cqw;
+  display: grid;
+  gap: .45cqw;
+  align-content: start;
+}
+.pov-card h3 { font-size: .95cqw; color: var(--text); }
+.pov-card .tag {
+  font-family: Consolas, monospace;
+  font-size: .58cqw;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.pov-card ul { margin: 0; padding-left: 1cqw; display: grid; gap: .3cqw; }
+.pov-card li { font-size: .66cqw; }
+.target-layout {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: .75cqw;
+  min-height: 0;
+}
+.target-profile {
+  border: 1px solid var(--line-bright);
+  border-radius: .55cqw;
+  background: linear-gradient(180deg, rgba(184,255,60,.05), transparent 45%), var(--bg-panel);
+  padding: .9cqw 1cqw;
+  display: grid;
+  gap: .55cqw;
+  align-content: start;
+}
+.target-profile .title { font-size: 1.35cqw; font-weight: 600; color: var(--text); line-height: 1.1; }
+.target-profile .subtitle { font-size: .78cqw; color: var(--green); }
+.target-profile .remit { font-size: .76cqw; line-height: 1.4; }
+.pg-timeline {
+  display: grid;
+  gap: .5cqw;
+}
+.pg-phase {
+  border: 1px solid var(--line);
+  border-radius: .5cqw;
+  background: var(--bg-card);
+  padding: .65cqw .75cqw;
+  display: grid;
+  grid-template-columns: 5.5cqw 1fr;
+  gap: .65cqw;
+  align-items: start;
+}
+.pg-phase .when {
+  font-family: Consolas, monospace;
+  font-size: .62cqw;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.pg-phase strong { display: block; font-size: .78cqw; color: var(--text); margin-bottom: .15cqw; }
+.pg-phase p { font-size: .66cqw; }
+.discovery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .65cqw;
+  min-height: 0;
+}
+.discovery-col {
+  border: 1px solid var(--line);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .75cqw .85cqw;
+  display: grid;
+  gap: .45cqw;
+  align-content: start;
+}
+.discovery-col h3 { color: var(--green); font-size: .76cqw; text-transform: uppercase; letter-spacing: .08em; }
+.discovery-col ul { margin: 0; padding-left: 1cqw; display: grid; gap: .34cqw; }
+.discovery-col li { font-size: .7cqw; line-height: 1.35; }
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75cqw;
+  min-height: 0;
+}
+.leadership-card {
+  border: 1px solid var(--line-bright);
+  border-radius: .55cqw;
+  background: var(--bg-card);
+  padding: .9cqw 1cqw;
+  display: grid;
+  gap: .5cqw;
+  align-content: start;
+}
+.leadership-card .num {
+  width: 2cqw;
+  height: 2cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #101410;
+  font-size: .9cqw;
+  font-weight: 700;
+}
+.leadership-card h3 { font-size: 1cqw; color: var(--text); line-height: 1.15; }
+.leadership-card p { font-size: .74cqw; line-height: 1.4; }
+.leadership-card ul { margin: 0; padding-left: 1cqw; display: grid; gap: .28cqw; }
+.leadership-card li { font-size: .66cqw; }
 .deck-viewport:fullscreen { background: #000; --stage-w: min(100vw, calc(100vh * 16 / 9)); --stage-h: min(100vh, calc(100vw * 9 / 16)); }
 @media (prefers-reduced-motion: reduce) { .deck-track { transition: none; } }
 @media print {
@@ -380,6 +560,26 @@ strong { color: var(--text); font-weight: 600; }
 <span>Cursor AE Strategic Plan · Week of July 13, 2026</span>
 <span class="pgnum">01</span>
 </div>
+</div>
+</section>
+
+<section class="slide agenda-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="eyebrow">Today's Walkthrough</div>
+<h1>Agenda <span class="accent">End-to-End Territory Plan</span></h1>
+<p class="subtitle">A structured walkthrough of account selection, ranking rationale, top-account strategy, buying committee, pilot plan, discovery, and what I need from Cursor leadership to execute.</p>
+</div>
+<div class="agenda-grid">
+<div class="agenda-item"><span class="agenda-num">1</span><div class="agenda-copy"><h3>Five accounts</h3><p>Prospect targets I picked as strong Cursor fits in my territory.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">2</span><div class="agenda-copy"><h3>Why I ranked them</h3><p>Developer count, employees, revenue, AI maturity, and expansion potential.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">3</span><div class="agenda-copy"><h3>Top account walkthrough</h3><p>Deep dive on #1 — Manhattan Associates — and the 2026 account thesis.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">4</span><div class="agenda-copy"><h3>Five people to target</h3><p>Key stakeholders across the buying committee and decision chain.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">5</span><div class="agenda-copy"><h3>Target + pilot/growth plan</h3><p>Deepest dive on Ashish Andotra with a concrete PG rollout path.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">6</span><div class="agenda-copy"><h3>Discovery</h3><p>Conversation prompts to validate priorities and uncover blockers.</p></div></div>
+<div class="agenda-item"><span class="agenda-num">7</span><div class="agenda-copy"><h3>Three things from leadership</h3><p>What I need from Cursor leadership to land and expand these accounts.</p></div></div>
+</div>
+<div class="slide-foot"><span>Cursor AE Strategic Plan · Week of July 13, 2026</span><span class="pgnum">02</span></div>
 </div>
 </section>
 
@@ -520,7 +720,7 @@ strong { color: var(--text); font-weight: 600; }
 <div class="slide-foot">
 <span>Top 5 Accounts Ranked by Impact &amp; Potential | Cursor Territory Strategy</span>
 <div class="brand"><svg viewBox="0 0 24 24" fill="#b8ff3c"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg> Cursor</div>
-<span class="pgnum">02</span>
+<span class="pgnum">03</span>
 </div>
 </div>
 </section>
@@ -565,7 +765,7 @@ strong { color: var(--text); font-weight: 600; }
 </ul>
 </div>
 </div>
-<div class="slide-foot"><span>Manhattan Associates · Priority #1</span><span class="pgnum">03</span></div>
+<div class="slide-foot"><span>Manhattan Associates · Priority #1</span><span class="pgnum">04</span></div>
 </div>
 </section>
 
@@ -609,7 +809,7 @@ strong { color: var(--text); font-weight: 600; }
 </ul>
 </div>
 </div>
-<div class="slide-foot"><span>Verifone · Priority #2</span><span class="pgnum">04</span></div>
+<div class="slide-foot"><span>Verifone · Priority #2</span><span class="pgnum">05</span></div>
 </div>
 </section>
 
@@ -653,7 +853,7 @@ strong { color: var(--text); font-weight: 600; }
 </ul>
 </div>
 </div>
-<div class="slide-foot"><span>Extreme Networks · Priority #3</span><span class="pgnum">05</span></div>
+<div class="slide-foot"><span>Extreme Networks · Priority #3</span><span class="pgnum">06</span></div>
 </div>
 </section>
 
@@ -697,7 +897,7 @@ strong { color: var(--text); font-weight: 600; }
 </ul>
 </div>
 </div>
-<div class="slide-foot"><span>Agilysys · Priority #4</span><span class="pgnum">06</span></div>
+<div class="slide-foot"><span>Agilysys · Priority #4</span><span class="pgnum">07</span></div>
 </div>
 </section>
 
@@ -741,7 +941,228 @@ strong { color: var(--text); font-weight: 600; }
 </ul>
 </div>
 </div>
-<div class="slide-foot"><span>Guardian Life · Priority #5</span><span class="pgnum">07</span></div>
+<div class="slide-foot"><span>Guardian Life · Priority #5</span><span class="pgnum">08</span></div>
+</div>
+</section>
+
+<section class="slide deep-dive-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="head-row">
+<div>
+<div class="eyebrow">Top Account · #1</div>
+<h1>Manhattan Associates <span class="accent">2026 Account Thesis</span></h1>
+<p class="subtitle">A cloud-native supply-chain software leader whose growth depends on converting more customers to Manhattan Active, expanding recurring cloud revenue, and turning AI innovation into differentiated customer outcomes.</p>
+</div>
+<div class="framework-box">
+<div class="label">Why Manhattan First</div>
+<div class="framework-list">
+<div class="framework-item"><span class="framework-dot"></span>~1,800 developers — large seat TAM</div>
+<div class="framework-item"><span class="framework-dot"></span>Exec entry via CTO Sanjeev Siotia</div>
+<div class="framework-item"><span class="framework-dot"></span>AI platform owner as technical champion</div>
+<div class="framework-item"><span class="framework-dot"></span>Velocity on Active = revenue growth</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pov-grid">
+<article class="pov-card">
+<div class="tag">Increase revenue</div>
+<h3>Ship Active &amp; Agents faster</h3>
+<ul>
+<li>Help product engineers understand large codebases and move Agent Foundry concepts into production</li>
+<li>Accelerate Manhattan Active adoption and cloud-subscription growth</li>
+<li><strong>Proof:</strong> shorter idea-to-production cycle, faster agent delivery, more roadmap capacity per release</li>
+</ul>
+</article>
+<article class="pov-card">
+<div class="tag">Decrease cost</div>
+<h3>More output per engineer</h3>
+<ul>
+<li>Reduce repetitive coding, test creation, documentation, and legacy-code navigation</li>
+<li>Scale cloud migrations and customer-specific work without proportional headcount growth</li>
+<li><strong>Proof:</strong> engineering hours saved, lower cost per resolved issue, faster implementation milestones</li>
+</ul>
+</article>
+<article class="pov-card">
+<div class="tag">Decrease risk</div>
+<h3>Modernize without weakening trust</h3>
+<ul>
+<li>Policy-aware code generation, broader test coverage, safer refactoring at scale</li>
+<li>Protect reliability as Manhattan expands Active and customer-facing agents</li>
+<li><strong>Proof:</strong> defect escape rate, remediation time, review depth, policy-compliant code acceptance</li>
+</ul>
+</article>
+</div>
+<div class="slide-foot"><span>Manhattan Associates · Top Account Walkthrough</span><span class="pgnum">09</span></div>
+</div>
+</section>
+
+<section class="slide stakeholders-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="eyebrow">Buying Committee</div>
+<h1>Five People <span class="accent">Who Can Move Manhattan</span></h1>
+<p class="subtitle">One account, five paths into the buying committee — covering vision, deployment, security, operational adoption, and a practical first use case.</p>
+</div>
+<div class="stakeholder-grid">
+<article class="stakeholder-card">
+<div class="num">01</div>
+<div class="name">Sanjeev Siotia</div>
+<div class="role">EVP &amp; CTO</div>
+<div class="buy">Executive sponsor</div>
+<p>Sets the technology standard and can make Cursor a strategic engineering standard — not a scattered team-level tool.</p>
+</article>
+<article class="stakeholder-card">
+<div class="num">02</div>
+<div class="name">Jonathan Cox</div>
+<div class="role">VP &amp; CIO</div>
+<div class="buy">Platform buyer</div>
+<p>Operationalizes enterprise adoption — identity, provisioning, support, and globally governed rollout.</p>
+</article>
+<article class="stakeholder-card">
+<div class="num">03</div>
+<div class="name">Robert Alldread</div>
+<div class="role">Sr. Director, Global Security</div>
+<div class="buy">Risk approver</div>
+<p>High-influence approver — engage early to turn security from a late blocker into a design partner.</p>
+</article>
+<article class="stakeholder-card">
+<div class="num">04</div>
+<div class="name">Udai Tennati</div>
+<div class="role">SVP, Technology Services</div>
+<div class="buy">Scale champion</div>
+<p>Owns delivery capacity that converts subscriptions into successful go-lives — velocity shows up in customer outcomes.</p>
+</article>
+<article class="stakeholder-card">
+<div class="num">05</div>
+<div class="name">Ashish Andotra</div>
+<div class="role">Director, AI &amp; F&amp;A</div>
+<div class="buy">Pilot champion</div>
+<p>Close enough to identify a high-value pilot, senior enough to connect results to enterprise transformation ROI.</p>
+</article>
+</div>
+<div class="slide-foot"><span>Manhattan Associates · Stakeholder Map</span><span class="pgnum">10</span></div>
+</div>
+</section>
+
+<section class="slide target-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="eyebrow">Primary Target · Pilot Champion</div>
+<h1>Ashish Andotra <span class="accent">Pilot &amp; Growth Plan</span></h1>
+<p class="subtitle">Co-design a narrow pilot on an internal finance or enterprise-app workflow — prove measurable before-and-after results, then expand across Manhattan Active engineering.</p>
+</div>
+<div class="target-layout">
+<aside class="target-profile">
+<div class="subtitle">Director, AI &amp; F&amp;A · Digital Transformation</div>
+<div class="title">Ashish Andotra</div>
+<p class="remit">Sits at the intersection of AI, finance workflows, enterprise applications, data, and measurable digital-transformation outcomes.</p>
+<div class="panel" style="padding:.6cqw 0 0;border:none;background:transparent">
+<h3>Why Ashish</h3>
+<ul>
+<li>Owns AI platform decisions — natural technical champion for an AI coding layer</li>
+<li>Can sponsor a contained pilot without waiting for full CTO sign-off</li>
+<li>Connects engineering velocity to enterprise transformation metrics leadership cares about</li>
+</ul>
+</div>
+</aside>
+<div class="pg-timeline">
+<div class="pg-phase"><div class="when">Days 0–30 · Pilot</div><div><strong>Land: 25–50 seats on enterprise-app pod</strong><p>Scope one finance or internal-app squad. Baseline PR cycle time, time-to-first-PR, and AI-assisted merge %. Run security review with Robert early. Success = measurable velocity lift on a real backlog.</p></div></div>
+<div class="pg-phase"><div class="when">Days 31–60 · Prove</div><div><strong>Validate ROI &amp; multi-thread</strong><p>Present pilot metrics to Ashish and Jonathan. Expand to one Manhattan Active platform pod. Engage Udai's services team on integration/delivery use cases. Build executive narrative for Sanjeev.</p></div></div>
+<div class="pg-phase"><div class="when">Days 61–90 · Grow</div><div><strong>Enterprise rollout path</strong><p>SSO/SCIM, Privacy Mode, usage analytics for CIO governance. Target 200–400 seats across R&D. Position against GitHub Copilot with head-to-head productivity data. Land enterprise agreement with land-and-expand triggers.</p></div></div>
+</div>
+</div>
+<div class="slide-foot"><span>Ashish Andotra · Pilot / Growth Plan</span><span class="pgnum">11</span></div>
+</div>
+</section>
+
+<section class="slide discovery-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="eyebrow">Discovery</div>
+<h1>Questions <span class="accent">To Validate &amp; Uncover Blockers</span></h1>
+<p class="subtitle">Discovery-oriented prompts for executive conversations — hypotheses to test, not a product pitch.</p>
+</div>
+<div class="discovery-grid">
+<div class="discovery-col">
+<h3>Strategic priorities</h3>
+<ul>
+<li>Which of revenue, cost, or risk is the binding constraint on your 2026 roadmap right now?</li>
+<li>Where does engineering velocity most directly move Manhattan Active adoption and cloud conversion?</li>
+<li>How are you measuring success on agentic AI and Agent Foundry delivery?</li>
+<li>What would a meaningful improvement in PR throughput or cycle time be worth to the business?</li>
+</ul>
+</div>
+<div class="discovery-col">
+<h3>Current state &amp; tooling</h3>
+<ul>
+<li>Walk me through how code moves today — from ticket to production. Where does the most calendar time burn?</li>
+<li>What AI coding tools are in use today? What's working, and what's still team-level vs. standardized?</li>
+<li>Where does tribal knowledge hunt slow down onboarding to Active's WMS / TMS / OMS surfaces?</li>
+<li>Who owns developer-tool standardization, security review, and procurement for AI tooling?</li>
+</ul>
+</div>
+<div class="discovery-col">
+<h3>Pilot &amp; success criteria</h3>
+<ul>
+<li>If we scoped a 30-day pilot with one squad, which team and use case would produce the clearest signal?</li>
+<li>What metrics would convince you — and your security team — that this is worth expanding?</li>
+<li>What does your ideal 30/60/90-day rollout look like for a new engineering platform?</li>
+<li>Who else needs to be in the room for a working session on pilot scope and governance?</li>
+</ul>
+</div>
+<div class="discovery-col">
+<h3>Assumption check</h3>
+<ul>
+<li>Where does my understanding of Manhattan's priorities match your world — and where is it off?</li>
+<li>What's the biggest blocker between today's engineering process and hitting your top initiatives?</li>
+<li>Is GitHub Copilot the incumbent, or are teams running a mix of tools?</li>
+<li>What would make this a clear yes vs. a "come back in six months"?</li>
+</ul>
+</div>
+</div>
+<div class="slide-foot"><span>Manhattan Associates · Discovery Prompts</span><span class="pgnum">12</span></div>
+</div>
+</section>
+
+<section class="slide leadership-slide">
+<div class="slide-inner">
+<div class="slide-head">
+<div class="eyebrow">What I Need to Win</div>
+<h1>Three Things <span class="accent">From Cursor Leadership</span></h1>
+<p class="subtitle">To land Manhattan and expand across my top five accounts, I need organizational support beyond individual AE execution.</p>
+</div>
+<div class="leadership-grid">
+<article class="leadership-card">
+<div class="num">1</div>
+<h3>Dedicated field engineering for enterprise pilots</h3>
+<p>Manhattan is a security-conscious, multi-stakeholder deal. I need a named FE/SE partner for the Ashish pilot — security review support, Active codebase enablement, and hands-on rollout coaching.</p>
+<ul>
+<li>Co-own 30/60/90 pilot execution with me</li>
+<li>Support Robert Alldread's security diligence early</li>
+</ul>
+</article>
+<article class="leadership-card">
+<div class="num">2</div>
+<h3>Executive air cover for top accounts</h3>
+<p>Sanjeev Siotia is an identified economic buyer. A CTO-to-CTO or VP-level intro from Cursor leadership would accelerate credibility and compress the path from pilot to enterprise standard.</p>
+<ul>
+<li>Cursor exec sponsor for Manhattan #1 account</li>
+<li>Willingness to join a strategic working session post-pilot</li>
+</ul>
+</article>
+<article class="leadership-card">
+<div class="num">3</div>
+<h3>Pilot-friendly commercial flexibility</h3>
+<p>Land-and-expand across ~8,100 engineers in my top five requires deal structures that reward early commitment without forcing a full-org purchase on day one.</p>
+<ul>
+<li>Flexible seat packaging for 25→200→1,000+ expansion</li>
+<li>Deal desk support for competitive displacement vs. Copilot</li>
+</ul>
+</article>
+</div>
+<div class="slide-foot"><span>Cursor AE Strategic Plan · Leadership Asks</span><span class="pgnum">13</span></div>
 </div>
 </section>
 
@@ -751,7 +1172,7 @@ strong { color: var(--text); font-weight: 600; }
 
 <div class="controls">
 <button class="control-btn" id="prev" type="button">←</button>
-<span id="counter">1 / 7</span>
+<span id="counter">1 / 13</span>
 <button class="control-btn" id="next" type="button">→</button>
 <button class="control-btn" id="fullscreen" type="button">⛶</button>
 </div>
@@ -766,6 +1187,10 @@ const setActive = (n) => {
   i = Math.max(0, Math.min(slides.length - 1, n));
   track.style.setProperty('--i', i);
   document.querySelector('#counter').textContent = `${i + 1} / ${slides.length}`;
+  slides.forEach((slide, idx) => {
+    const pg = slide.querySelector('.pgnum');
+    if (pg) pg.textContent = String(idx + 1).padStart(2, '0');
+  });
 };
 
 const stepForward = () => setActive(i + 1);
